@@ -1,18 +1,28 @@
 import React from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
+import './App.css'
 
-const Home = ({match}) => {
-    console.log(match)
-    return <h1>Home</h1>
+const isActiveFn = (match, location) => {
+  console.log(match,location)
+  //if a match is returned activeClassName will trigger
+  return match
 }
-const AboutComp = () => <h2>This is the About component</h2>
+
+const Links = () => (
+  <nav>
+    <NavLink exact activeClassName='active-link' to='/'>Home</NavLink>
+    <NavLink activeClassName='active-link' to={ {pathname:'/about'} }>About</NavLink>
+    <NavLink isActive={ isActiveFn } activeClassName='active-link' replace to='/Contact'>Contact</NavLink>
+  </nav>
+)
+
 const App = () => (
   <Router>
     <div>
-      <Route exact path='/' component={Home} />
-      {/*<Route path='/about' component={AboutComp} />*/}
-      {/*<Route path='/about' render={ () => (<h2>New About</h2>) }/>*/}
-      <Route path='/about' children={({match}) => match && <h2>I will always render</h2>} />
+      <Links/>
+      <Route exact path='/' render={ ()=> <h1>Home</h1> } />
+      <Route exact path='/about' render={ ()=> <h1>About</h1> } />
+      <Route exact path='/contact' render={ ()=> <h1>Contact</h1> } />
     </div>
   </Router>
 )
