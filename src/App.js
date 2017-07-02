@@ -1,28 +1,28 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
+import {BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from 'react-router-dom'
 import './App.css'
 
-const Home = () => <h1>Home</h1>
-const Menu = () => (
-  <div>
-    <h1>Menu</h1>
-    <Link to="/menu/food">Food</Link>
-    <Link to="/menu/drinks">Drinks</Link>
-    <Link to="/menu/sides">Home</Link>
-    <Route
-    path="/menu/:section"
-    render={ ({match}) => <h1>{match.params.section}</h1> }
-    />
-  </div>
-)
+const Links = () =>
+  <nav>
+    <Link to="/">Home</Link>
+    <Link to="/old">Old</Link>
+    <Link to="/new">New</Link>
+  </nav>
 
-const App = (props) => (
+    const App = (props) => (
   <Router>
     <div>
-      <Link to="/">Home</Link>
-      <Link to="/menu">Menu</Link>
-      <Route exact path="/" component={Home} />
-      <Route path="/menu" component={Menu} />
+      <Links />
+      <Switch>
+        <Route exact path="/" render={ () => <h1>Home</h1> } />
+        <Route exact path="/new" render={ () => <h1>New</h1> } />
+        <Redirect from="/old" to="/new" />
+      </Switch>
     </div>
   </Router>
 )
