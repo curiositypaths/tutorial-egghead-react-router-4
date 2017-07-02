@@ -1,21 +1,24 @@
 import React from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import './App.css'
 
-const isActiveFn = (match, location) => {
-  console.log(match,location)
-  //if a match is returned activeClassName will trigger
-  return match
-}
-
-const App = () => (
+const Links = () => (
+  <nav>
+    <Link to='/?=123'>Inline</Link>
+    <Link to={ {pathname:'/', search:'id=456'} }>Object</Link>
+  </nav>
+)
+const App = (props) => (
   <Router>
     <div>
-      <Route path='/:page?-:subpage?' render={ ({match}) => (
-        <h1>
-          Page: {match.params.page || 'Home'}<br/>
-          Subpage: {match.params.subpage}
-        </h1>
+      <Links />
+      <Route path='/' render={ ({match, location}) => (
+        <div>
+          <p>root</p>
+          <p>{ JSON.stringify(match) }</p>
+          <p>{ JSON.stringify(location) }</p>
+          <p>{ new URLSearchParams(location.search).get('id') }</p>
+        </div>
       ) } />
     </div>
   </Router>
