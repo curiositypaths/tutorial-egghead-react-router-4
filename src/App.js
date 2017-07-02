@@ -18,11 +18,9 @@ const Links = () =>
   <Router>
     <div>
       <Links />
-      <Switch>
-        <Route exact path="/" render={ () => <h1>Home</h1> } />
-        <Route exact path="/new" render={ () => <h1>New</h1> } />
-        <Redirect from="/old" to="/new" />
-      </Switch>
+      <Route exact path="/" render={ () => <h1>Home</h1> } />
+      <Route exact path="/new" render={ () => <h1>New</h1> } />
+      <Route path="/old" render={ () => <Redirect to="/new" /> } />
     </div>
   </Router>
 )
